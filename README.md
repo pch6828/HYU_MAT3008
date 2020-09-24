@@ -6,3 +6,6 @@ Numerical Analysis
 
 ### Homework 2
 - [Finding Minimum](https://github.com/pch6828/HYU_MAT3008/tree/master/HW2)
+
+### Homework 4
+- [Curve Fitting](https://github.com/pch6828/HYU_MAT3008/tree/master/HW4)
