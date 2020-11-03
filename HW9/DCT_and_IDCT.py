@@ -2,6 +2,8 @@ from PIL import Image
 from scipy.fftpack import dct, idct
 import numpy as np
 
+BLOCK_SIZE = 16
+
 def dct2(block):
     return dct(dct(block.T, norm = 'ortho').T, norm = 'ortho')
 
@@ -17,7 +19,7 @@ def quantize(block):
     sorted.sort(reverse = True)
 
     checked = {}
-    for k in range(16):
+    for k in range(BLOCK_SIZE):
         flag = False
         for i in range(len(block)):
             for j in range(len(block[i])):
@@ -56,11 +58,11 @@ def process_image(filename):
             blockR = []
             blockG = []
             blockB = []
-            for p in range(16):
+            for p in range(BLOCK_SIZE):
                 rowR = []
                 rowG = []
                 rowB = []
-                for q in range(16):
+                for q in range(BLOCK_SIZE):
                     i = a+p
                     j = b+q
                     if i>=960 or j >=540:
@@ -86,9 +88,9 @@ def process_image(filename):
                     R2[i][j] = idct_result_R[p][q]
                     G2[i][j] = idct_result_G[p][q]
                     B2[i][j] = idct_result_B[p][q]
-            b += 16
+            b += BLOCK_SIZE
         
-        a += 16
+        a += BLOCK_SIZE
         b = 0
     newImg = Image.new('RGB', (960,540))
     pixels = newImg.load()
