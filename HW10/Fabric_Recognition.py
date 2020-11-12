@@ -5,7 +5,7 @@ import numpy as np
 
 BLOCK_CNT = 10
 BLOCK_SIZE = 64
-TEST_SIZE = (BLOCK_SIZE, BLOCK_SIZE)
+TEST_SIZE = (BLOCK_SIZE//2, BLOCK_SIZE//2)
 
 def visualize_fft(filename):
     global BLOCK_CNT
@@ -49,6 +49,9 @@ def matrix_to_image(matrix, image_name):
     image.putdata(matrix.reshape((BLOCK_SIZE*BLOCK_SIZE,)))
     image.save(image_name)
 
+def normalize(vector):
+    return vector / np.sqrt(np.dot(vector, vector))
+
 def make_coefficient_vector(fft_vector):
     global BLOCK_SIZE, TEST_SIZE
     fft_matrix = fft_vector.reshape((BLOCK_SIZE, BLOCK_SIZE))
@@ -58,7 +61,7 @@ def make_coefficient_vector(fft_vector):
         for j in range(TEST_SIZE[1]):
             coefficient_matrix[i][j] = fft_matrix[i+(BLOCK_SIZE-TEST_SIZE[0])][j+(BLOCK_SIZE-TEST_SIZE[1])]
 
-    return coefficient_matrix.reshape((TEST_SIZE[0]*TEST_SIZE[1],))
+    return normalize(coefficient_matrix.reshape((TEST_SIZE[0]*TEST_SIZE[1],)))
 
 def make_coefficient_map(fft_map):
     coefficient_map = {}
