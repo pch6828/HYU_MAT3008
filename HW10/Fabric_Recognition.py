@@ -7,11 +7,13 @@ BLOCK_CNT = 10
 BLOCK_SIZE = 64
 TEST_SIZE = (BLOCK_SIZE//2, BLOCK_SIZE//2)
 
-def visualize_fft(filename):
+def visualize_fft(filename, test = False):
     global BLOCK_CNT
     global BLOCK_SIZE
     fft_result = np.zeros((BLOCK_SIZE, BLOCK_SIZE), dtype = 'complex128')
     cnt = BLOCK_CNT
+    if test:
+        cnt = 1
     pixels = np.asarray(Image.open(filename, 'r').convert('L')).reshape((640,640))
 
     while cnt > 0:
@@ -26,7 +28,8 @@ def visualize_fft(filename):
         
         fft_result += np.fft.fftshift(np.fft.fft2(block))
     
-    fft_result /= BLOCK_CNT
+    if not test:
+        fft_result /= BLOCK_CNT
     fft_result = np.abs(fft_result)
     for i in range(BLOCK_SIZE):
         for j in range(BLOCK_SIZE):
@@ -50,6 +53,7 @@ def matrix_to_image(matrix, image_name):
     image.save(image_name)
 
 def normalize(vector):
+    #return vector
     return vector / np.sqrt(np.dot(vector, vector))
 
 def make_coefficient_vector(fft_vector):
@@ -73,7 +77,7 @@ def make_coefficient_map(fft_map):
 
 def pattern_recognition(filename, coefficient_map):
     global BLOCK_SIZE
-    pixel, fft_result = visualize_fft(filename)
+    pixel, fft_result = visualize_fft(filename, test=True)
     pattern_vector = fft_result.reshape((BLOCK_SIZE*BLOCK_SIZE))
     pattern_vector[BLOCK_SIZE*BLOCK_SIZE//2+BLOCK_SIZE//2] = 0
     pattern_vector = make_coefficient_vector(pattern_vector)
