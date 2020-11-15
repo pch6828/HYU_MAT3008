@@ -2,8 +2,7 @@ import os
 import sys
 from PIL import Image
 import numpy as np
-import matplotlib as mpl
-import matplotlib.pylab as plt
+import matplotlib.pyplot as plt
 
 def get_RGB_YUV(filename):
     image_rgb = Image.open(filename)
@@ -54,7 +53,7 @@ def get_RGB_YUV(filename):
     newV.save(filename[0]+'V.'+filename[1])
     return R, G, B, Y, U, V
 
-def get_correlation(A, B):
+def get_correlation(A, B, plot = False):
     avg_A = 0.0
     avg_B = 0.0
     for a in A:
@@ -80,6 +79,9 @@ def get_correlation(A, B):
         covariance += (A[i]-avg_A)*(B[i]-avg_B)
     covariance /= len(A)
 
+    if plot:
+        plt.scatter(A, B, c = 'blue', s = 0.1)
+        plt.show()
     return covariance/(stdev_A*stdev_B)
 
 def main():
