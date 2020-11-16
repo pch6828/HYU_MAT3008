@@ -85,6 +85,12 @@ def get_correlation(A, B, plot = False):
     return covariance/(stdev_A*stdev_B)
 
 def main():
+    totalR = []
+    totalG = []
+    totalB = []
+    totalY = []
+    totalU = []
+    totalV = []
     for filename in os.listdir('crop_data/'):
         print("Filename : %s" % filename)
         print("Get RGV and YUV component...")
@@ -96,6 +102,19 @@ def main():
         print("Y-U correlation : %10f" % get_correlation(Y, U))
         print("Y-V correlation : %10f" % get_correlation(Y, V))
         print("U-V correlation : %10f" % get_correlation(U, V))
-
+        totalR += R
+        totalG += G
+        totalB += B
+        totalY += Y
+        totalU += U
+        totalV += V
+    print()
+    print("Evaluate Total Correlation Coefficient...")
+    print("G-R correlation : %10f" % get_correlation(totalR, totalG))
+    print("G-B correlation : %10f" % get_correlation(totalG, totalB))
+    print("R-B correlation : %10f" % get_correlation(totalR, totalB))
+    print("Y-U correlation : %10f" % get_correlation(totalY, totalU))
+    print("Y-V correlation : %10f" % get_correlation(totalY, totalV))
+    print("U-V correlation : %10f" % get_correlation(totalU, totalV))
 if __name__ == "__main__":
     main()
