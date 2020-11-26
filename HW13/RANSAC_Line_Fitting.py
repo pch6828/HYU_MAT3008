@@ -5,8 +5,6 @@ def getSample():
     print("Construct Sample with Gaussian Noise")
     X = np.linspace(-5,6,12)
     Y = X * 2 - np.ones((12,)) + np.random.normal(0,1,12)
-    print(X)
-    print(Y)
     return X, Y
 
 def getMatrix(X, Y, partial = True):
@@ -39,11 +37,11 @@ def getError(X, Y, coefficient, verbose=False):
         error+=(Y[i] - (X[i]*coefficient[0]+coefficient[1]))**2
     if verbose:
         print()
-    return error
+    return error/12
 
 def get_single_result(X, Y, A, B):
     now_result = pseudoinverse(A)@B
-    now_error = getError(X, Y, now_result)
+    now_error = getError(X, Y, now_result)  
     return now_result, now_error
     
 def ransac(X, Y, test = 4):
@@ -66,7 +64,7 @@ def main():
     full_A, full_B = getMatrix(X, Y, partial=False)
 
     print("Start RANSAC Process...")
-    partial_result, partial_error = ransac(X, Y)
+    partial_result, partial_error = ransac(X, Y, test=10)
     full_result, full_error = get_single_result(X, Y, full_A, full_B)
 
     print("Whole Sample Test Result \t: ( %f )x+( %f )"%(full_result[0], full_result[1]))
