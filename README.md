@@ -17,6 +17,12 @@ Numerical Analysis
 #### Homework 10
 - [Discrete Fourier Transform](https://github.com/pch6828/HYU_MAT3008/tree/master/HW10)
 
+#### Homework 13
+- [RANSAC](https://github.com/pch6828/HYU_MAT3008/tree/master/HW13)
+
+#### Homework 14
+- [Clustering Method](https://github.com/pch6828/HYU_MAT3008/tree/master/HW14)
+
 ## Project
 #### Project 1
 - [Eigenface](https://github.com/pch6828/HYU_MAT3008/tree/master/Project%201)
