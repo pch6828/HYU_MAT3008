@@ -26,3 +26,6 @@ Numerical Analysis
 ## Project
 #### Project 1
 - [Eigenface](https://github.com/pch6828/HYU_MAT3008/tree/master/Project%201)
+
+#### Project 2
+- [Pattern Recognition](https://github.com/pch6828/HYU_MAT3008/tree/master/Project%202)
